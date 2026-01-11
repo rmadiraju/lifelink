@@ -1,0 +1,323 @@
+/* Landing Page Styles */
+:root {
+    --lp-bg-dark: #0f172a;
+    --lp-primary: #3b82f6;
+    --lp-accent: #8b5cf6;
+    --lp-text-light: #f8fafc;
+    --lp-text-dim: #94a3b8;
+    --lp-glass: rgba(255, 255, 255, 0.05);
+    --lp-glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.landing-page {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--lp-bg-dark);
+    color: var(--lp-text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Background Gradients */
+.landing-page::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, var(--lp-primary) 0%, transparent 70%);
+    opacity: 0.2;
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.landing-page::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, var(--lp-accent) 0%, transparent 70%);
+    opacity: 0.2;
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.lp-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Header */
+.lp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.lp-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--lp-primary), var(--lp-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+}
+
+.lp-nav a {
+    color: var(--lp-text-dim);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.lp-nav a:hover {
+    color: var(--lp-text-light);
+}
+
+/* Hero Section */
+.lp-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 0 6rem;
+}
+
+.lp-hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lp-hero p {
+    font-size: 1.25rem;
+    color: var(--lp-text-dim);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.lp-cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--lp-primary), var(--lp-accent));
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
+}
+
+.lp-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.5);
+}
+
+.lp-cta-button svg {
+    margin-left: 0.5rem;
+    width: 20px;
+    height: 20px;
+}
+
+/* Features Section */
+.lp-features {
+    padding: 6rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.lp-feature-card {
+    background: var(--lp-glass);
+    border: 1px solid var(--lp-glass-border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.lp-feature-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.lp-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--lp-primary);
+}
+
+.lp-feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.lp-feature-card p {
+    color: var(--lp-text-dim);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Pricing Section */
+.lp-pricing {
+    padding: 6rem 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: linear-gradient(to right, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lp-pricing-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.lp-price-card {
+    background: var(--lp-glass);
+    border: 1px solid var(--lp-glass-border);
+    border-radius: 1.5rem;
+    padding: 3rem 2rem;
+    backdrop-filter: blur(10px);
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.lp-price-card.featured {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--lp-primary);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+
+.lp-price-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--lp-text-light);
+}
+
+.lp-price-card .price {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: var(--lp-text-light);
+}
+
+.lp-price-card .price span {
+    font-size: 1rem;
+    color: var(--lp-text-dim);
+    font-weight: 400;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2.5rem;
+    color: var(--lp-text-dim);
+    width: 100%;
+}
+
+.features-list li {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--lp-glass-border);
+}
+
+.features-list li:last-child {
+    border-bottom: none;
+}
+
+.lp-button-outline {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border: 1px solid var(--lp-glass-border);
+    color: var(--lp-text-light);
+    text-decoration: none;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+.lp-button-outline:hover {
+    background: var(--lp-glass-border);
+}
+
+.lp-button-filled {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: var(--lp-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.lp-button-filled:hover {
+    background: var(--lp-accent);
+}
+
+
+/* Footer */
+.lp-footer {
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid var(--lp-glass-border);
+    color: var(--lp-text-dim);
+    font-size: 0.9rem;
+    margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+    .lp-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .lp-pricing-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lp-price-card.featured {
+        transform: none;
+    }
+}

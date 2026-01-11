@@ -1,0 +1,193 @@
+.premium-page {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.premium-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Compact Grid */
+.premium-grid-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.compact-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3b82f6;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag-cloud span {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Reward Banner */
+.reward-banner {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(234, 179, 8, 0.05));
+    border: 1px solid rgba(234, 179, 8, 0.2);
+    border-radius: 16px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reward-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reward-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.reward-text .points {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fbbf24;
+}
+
+.reward-text small {
+    font-size: 0.75rem;
+    color: #d1d5db;
+}
+
+.reward-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #fbbf24;
+    border-radius: 3px;
+}
+
+
+/* Section Titles */
+.section-title-wrap {
+    margin-bottom: 15px;
+    /* Reset alignment for main sections */
+    display: flex;
+    justify-content: flex-start;
+}
+
+.bubble-title {
+    background: transparent;
+    color: #e2e8f0;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+
+/* Recommendations Styles - Keeping these but ensuring they fit */
+.recommendations-section {
+    margin-top: 10px;
+}
+
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recommendation-card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    /* Subtle blue border for professional look */
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s;
+}
+
+.recommendation-card:active {
+    transform: scale(0.98);
+}
+
+.rec-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    /* Squircle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.rec-content h4 {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    color: #f1f5f9;
+}
+
+.rec-content p {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+/* Variant Accents Refined */
+.recommendation-card.hydration .rec-icon {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+}
+
+.recommendation-card.sleep .rec-icon {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+}
+
+.recommendation-card.stress .rec-icon {
+    background: rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+}

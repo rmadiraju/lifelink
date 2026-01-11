@@ -1,0 +1,214 @@
+.dashboard {
+    padding: 20px;
+    padding-bottom: 100px;
+}
+
+.dashboard-header {
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.header-text h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.header-text .date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.vitals-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-title h3 {
+    background: var(--accent-blue);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.section-title .line {
+    height: 2px;
+    background: #fff;
+    flex-grow: 1;
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+.card {
+    background: rgba(17, 34, 64, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.stat-row.mt-3 {
+    margin-top: 20px;
+}
+
+.stat-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.icon-wrapper {
+    padding: 5px;
+}
+
+.stat-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-details .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-details .value small {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.stat-details .label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.stat-details .status {
+    font-size: 0.7rem;
+    color: var(--accent-blue);
+    font-style: italic;
+}
+
+.value.box {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin: 5px 0;
+}
+
+.sub-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* Cardiac Card Specifics */
+.cardiac-card {
+    background: rgba(10, 25, 47, 0.8);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.icon-wrapper.big {
+    background: transparent;
+    padding: 0;
+    margin-right: 5px;
+}
+
+.value-group {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.value.highlight {
+    color: var(--accent-blue);
+    font-size: 1.5rem;
+}
+
+.unit {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.time-ago {
+    font-size: 0.8rem;
+    color: #fff;
+    opacity: 0.7;
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+    width: 100%;
+}
+.check-now-btn {
+    background: transparent;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: all 0.2s;
+}
+
+.check-now-btn:hover {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.status.checking {
+    color: var(--accent);
+    font-style: italic;
+    font-size: 0.7rem;
+    margin-top: 4px;
+}
+
+.animate-pulse {
+    animation: pulse-fast 1s infinite;
+}
+
+@keyframes pulse-fast {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}

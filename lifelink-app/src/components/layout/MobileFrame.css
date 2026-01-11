@@ -1,0 +1,39 @@
+/* Mobile App Frame Simulation Wrapper */
+.mobile-app-wrapper {
+    width: 100%;
+    max-width: 400px;
+    /* iPhone width approx */
+    height: 100vh;
+    max-height: 850px;
+    /* iPhone height approx */
+    background-color: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    /* Center horizontally if not flexed by parent */
+
+    /* Centering in viewport */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 450px) {
+    .mobile-app-wrapper {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+    }
+}
