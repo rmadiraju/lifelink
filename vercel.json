@@ -1,0 +1,22 @@
+{
+    "buildCommand": "cd lifelink-app && npm run build",
+    "outputDirectory": "lifelink-app/dist",
+    "devCommand": "cd lifelink-app && npm run dev",
+    "installCommand": "cd lifelink-app && npm install",
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ],
+    "functions": {
+        "lifelink-app/api/**/*.js": {
+            "memory": 1024,
+            "maxDuration": 10
+        }
+    }
+}
