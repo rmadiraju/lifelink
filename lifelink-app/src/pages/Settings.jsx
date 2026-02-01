@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Save, X, Check, Bell, Globe, RotateCcw, Shield, Share2, FileText, Users, Clock, Siren, Activity, Settings as SettingsIcon, ChevronRight, ChevronLeft } from 'lucide-react';
 import { userApi } from '../services/api';
+import sampleMedicalRecord from '../assets/sample-medical-record.png';
 import './Settings.css';
 
 const Settings = () => {
@@ -121,15 +122,18 @@ const Settings = () => {
 
             const data = await response.json();
             if (data.success) {
-                setShowShareConfirm(false);
-                setPendingShare(null);
                 setSaveSuccess(true);
                 setTimeout(() => setSaveSuccess(false), 2000);
+            } else {
+                setError('Failed to update sharing. Please try again.');
             }
         } catch (err) {
             console.error('Error updating ER sharing:', err);
             setError('Failed to update sharing. Please try again.');
         } finally {
+            // Always close the dialog and reset state
+            setShowShareConfirm(false);
+            setPendingShare(null);
             setSaving(false);
         }
     };
@@ -522,7 +526,7 @@ const Settings = () => {
                         </div>
                         <div className="record-viewer">
                             <img
-                                src="/src/assets/sample-medical-record.png"
+                                src={sampleMedicalRecord}
                                 alt="Medical Record"
                                 className="medical-record-image"
                             />
