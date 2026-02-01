@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Records from './pages/Records';
 import Premium from './pages/Premium';
 import Settings from './pages/Settings';
+import Simulator from './pages/Simulator';
 import BottomNav from './components/layout/BottomNav';
 import './App.css';
 
@@ -32,6 +33,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+
+        {/* Watch Simulator - standalone route */}
+        <Route path="/simulator" element={<Simulator />} />
 
         {/* Legacy Redirects */}
         <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />

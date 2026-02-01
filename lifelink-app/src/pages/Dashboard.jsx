@@ -1,19 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Activity, Thermometer, Moon, Stethoscope, CloudRain, User } from 'lucide-react';
+import { vitalsApi, userApi } from '../services/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const [isChecking, setIsChecking] = React.useState(false);
-    const [pulseStatus, setPulseStatus] = React.useState('Calculating...');
-    const [lastChecked, setLastChecked] = React.useState('1 min ago');
+    const [vitals, setVitals] = useState(null);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isChecking, setIsChecking] = useState(false);
 
-    const handleCheckNow = () => {
+    // Fetch data from API
+    const fetchData = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const [vitalsData, userData] = await Promise.all([
+                vitalsApi.fetch(),
+                userApi.fetch()
+            ]);
+            setVitals(vitalsData);
+            setUser(userData);
+        } catch (err) {
+            console.error('Error fetching data:', err);
+            setError('Failed to load vitals data. Using demo mode.');
+            // Set fallback data for demo purposes
+            setVitals({
+                heartRate: { value: 86, unit: 'bpm', status: 'Normal', lastChecked: '1 min ago' },
+                temperature: { value: 98.5, unit: '°F' },
+                sleepScore: { value: 76, lastCheckedText: '36 hours ago' },
+                bloodPressure: { systolic: 121, diastolic: 78, unit: 'mmHg', lastCheckedText: '42 min ago' },
+                oxygenSaturation: { value: 97.5, unit: '%', lastCheckedText: '38 min ago' }
+            });
+            setUser({ name: 'Sabrina' });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Fetch data on mount
+    useEffect(() => {
+        fetchData();
+
+        // Auto-refresh every 30 seconds
+        const interval = setInterval(fetchData, 30000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleCheckNow = async () => {
         setIsChecking(true);
-        setPulseStatus('Measuring...');
-        setTimeout(() => {
+
+        // Simulate checking and then refresh data
+        setTimeout(async () => {
+            await fetchData();
             setIsChecking(false);
-            setPulseStatus('Normal');
-            setLastChecked('Just now');
         }, 2000);
     };
 
@@ -23,6 +63,17 @@ const Dashboard = () => {
         year: 'numeric'
     });
 
+    if (loading && !vitals) {
+        return (
+            <div className="page dashboard">
+                <div className="loading-container">
+                    <Activity size={48} color="#64ffda" className="animate-pulse" />
+                    <p>Loading vitals...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="page dashboard">
             <header className="dashboard-header">
@@ -31,11 +82,17 @@ const Dashboard = () => {
                         <User size={20} color="#fff" />
                     </div>
                     <div className="header-text">
-                        <h2>Sabrina's LifeLink</h2>
+                        <h2>{user?.firstName || 'User'}'s LifeLink</h2>
                         <p className="date">{currentDate}</p>
                     </div>
                 </div>
             </header>
+
+            {error && (
+                <div className="error-banner">
+                    {error}
+                </div>
+            )}
 
             <div className="scroll-content">
                 {/* Basic Vitals Section */}
@@ -52,11 +109,11 @@ const Dashboard = () => {
                                     <Activity size={24} color="#64ffda" className={isChecking ? 'animate-pulse' : ''} />
                                 </div>
                                 <div className="stat-details">
-                                    <span className="value">86 <small>bpm</small></span>
-                                    <span className="label">{lastChecked}</span>
+                                    <span className="value">{vitals?.heartRate?.value || '--'} <small>{vitals?.heartRate?.unit || 'bpm'}</small></span>
+                                    <span className="label">{vitals?.heartRate?.lastChecked || 'N/A'}</span>
 
                                     {isChecking ? (
-                                        <span className="status checking">{pulseStatus}</span>
+                                        <span className="status checking">Measuring...</span>
                                     ) : (
                                         <button className="check-now-btn" onClick={handleCheckNow}>
                                             Check Now
@@ -71,7 +128,7 @@ const Dashboard = () => {
                                 </div>
                                 <div className="stat-details">
                                     <span className="label">Temperature</span>
-                                    <span className="value">98.5°</span>
+                                    <span className="value">{vitals?.temperature?.value || '--'}{vitals?.temperature?.unit || '°'}</span>
                                 </div>
                             </div>
                         </div>
@@ -83,8 +140,8 @@ const Dashboard = () => {
                                 </div>
                                 <div className="stat-details">
                                     <span className="label">Sleep Score</span>
-                                    <span className="value box">76</span>
-                                    <span className="sub-label">36 hours ago</span>
+                                    <span className="value box">{vitals?.sleepScore?.value || '--'}</span>
+                                    <span className="sub-label">{vitals?.sleepScore?.lastCheckedText || 'N/A'}</span>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +164,12 @@ const Dashboard = () => {
                                 <div className="stat-details">
                                     <span className="label">Blood Pressure</span>
                                     <div className="value-group">
-                                        <span className="value highlight">121/78</span>
-                                        <span className="unit">mmHg</span>
+                                        <span className="value highlight">
+                                            {vitals?.bloodPressure?.systolic || '--'}/{vitals?.bloodPressure?.diastolic || '--'}
+                                        </span>
+                                        <span className="unit">{vitals?.bloodPressure?.unit || 'mmHg'}</span>
                                     </div>
-                                    <span className="time-ago">42 min ago</span>
+                                    <span className="time-ago">{vitals?.bloodPressure?.lastCheckedText || 'N/A'}</span>
                                 </div>
                             </div>
                         </div>
@@ -120,14 +179,14 @@ const Dashboard = () => {
                         <div className="stat-row full-width">
                             <div className="stat-item">
                                 <div className="icon-wrapper big">
-                                    <CloudRain size={32} color="#e6f1ff" /> {/* Using CloudRain as proxy for Oxygen/Lungs if needed, or stick to O2 text */}
+                                    <CloudRain size={32} color="#e6f1ff" />
                                 </div>
                                 <div className="stat-details">
                                     <span className="label">Oxygen Saturation</span>
                                     <div className="value-group">
-                                        <span className="value highlight">97.5%</span>
+                                        <span className="value highlight">{vitals?.oxygenSaturation?.value || '--'}{vitals?.oxygenSaturation?.unit || '%'}</span>
                                     </div>
-                                    <span className="time-ago">38 min ago</span>
+                                    <span className="time-ago">{vitals?.oxygenSaturation?.lastCheckedText || 'N/A'}</span>
                                 </div>
                             </div>
                         </div>
