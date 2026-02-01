@@ -8,7 +8,37 @@ let dataStore = {
         gender: "Female",
         email: "sabrina.johnson@example.com",
         dateOfBirth: "2008-05-15",
-        lastUpdated: new Date().toISOString()
+        lastUpdated: new Date().toISOString(),
+        medicalRecords: [
+            {
+                id: 1,
+                title: "Physical Exam Report",
+                date: "2026-02-01",
+                type: "Physical Exam",
+                sharedWithER: true
+            },
+            {
+                id: 2,
+                title: "Blood Test Results",
+                date: "2026-01-15",
+                type: "Lab Results",
+                sharedWithER: false
+            },
+            {
+                id: 3,
+                title: "Vaccination Record",
+                date: "2025-12-10",
+                type: "Immunization",
+                sharedWithER: true
+            },
+            {
+                id: 4,
+                title: "Annual Checkup Summary",
+                date: "2025-11-05",
+                type: "Checkup",
+                sharedWithER: false
+            }
+        ]
     },
     vitals: {
         heartRate: {
@@ -43,6 +73,12 @@ let dataStore = {
         }
     },
     records: {
+        primaryCarePhysician: {
+            name: "Dr. Emma Smith",
+            address: "1320 Riley Dr, Frisco, TX",
+            phone: "(341) 908-2348",
+            hours: "8am - 6pm"
+        },
         prescriptions: [
             {
                 id: 1,
@@ -158,7 +194,37 @@ const resetData = () => {
             gender: "Female",
             email: "sabrina.johnson@example.com",
             dateOfBirth: "2008-05-15",
-            lastUpdated: new Date().toISOString()
+            lastUpdated: new Date().toISOString(),
+            medicalRecords: [
+                {
+                    id: 1,
+                    title: "Physical Exam Report",
+                    date: "2026-02-01",
+                    type: "Physical Exam",
+                    sharedWithER: true
+                },
+                {
+                    id: 2,
+                    title: "Blood Test Results",
+                    date: "2026-01-15",
+                    type: "Lab Results",
+                    sharedWithER: false
+                },
+                {
+                    id: 3,
+                    title: "Vaccination Record",
+                    date: "2025-12-10",
+                    type: "Immunization",
+                    sharedWithER: true
+                },
+                {
+                    id: 4,
+                    title: "Annual Checkup Summary",
+                    date: "2025-11-05",
+                    type: "Checkup",
+                    sharedWithER: false
+                }
+            ]
         },
         vitals: {
             heartRate: {
@@ -193,11 +259,66 @@ const resetData = () => {
             }
         },
         records: {
+            primaryCarePhysician: {
+                name: "Dr. Emma Smith",
+                address: "1320 Riley Dr, Frisco, TX",
+                phone: "(341) 908-2348",
+                hours: "8am - 6pm"
+            },
             prescriptions: [],
-            appointments: []
+            appointments: [
+                {
+                    id: 1,
+                    doctor: "Dr. Emma Smith",
+                    specialty: "Primary Care",
+                    date: "2026-01-23",
+                    time: "11:00",
+                    location: "1320 Riley Dr, Frisco, TX",
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    doctor: "Dr. John Davis",
+                    specialty: "Cardiology",
+                    date: "2026-02-05",
+                    time: "14:00",
+                    location: "Medical Plaza, Suite 200",
+                    createdAt: new Date().toISOString()
+                }
+            ]
         }
     };
     return dataStore;
+};
+
+// Update Primary Care Physician
+const updatePCP = (pcpData) => {
+    dataStore.records.primaryCarePhysician = {
+        ...dataStore.records.primaryCarePhysician,
+        ...pcpData
+    };
+    return dataStore.records.primaryCarePhysician;
+};
+
+// Add new appointment
+const addAppointment = (appointmentData) => {
+    const newAppointment = {
+        id: Date.now(),
+        ...appointmentData,
+        createdAt: new Date().toISOString()
+    };
+    dataStore.records.appointments.push(newAppointment);
+    return newAppointment;
+};
+
+// Update medical records ER authorization
+const updateMedicalRecordsAuth = (recordIds) => {
+    if (dataStore.user.medicalRecords) {
+        dataStore.user.medicalRecords.forEach(record => {
+            record.sharedWithER = recordIds.includes(record.id);
+        });
+    }
+    return dataStore.user.medicalRecords;
 };
 
 // CommonJS exports for Node.js
@@ -208,5 +329,8 @@ module.exports = {
     getVitals,
     updateVitals,
     getRecords,
-    resetData
+    resetData,
+    updatePCP,
+    addAppointment,
+    updateMedicalRecordsAuth
 };

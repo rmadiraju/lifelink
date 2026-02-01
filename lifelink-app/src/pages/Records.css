@@ -13,6 +13,42 @@
     letter-spacing: -0.025em;
 }
 
+/* Success/Error Banners */
+.success-banner,
+.error-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+.success-banner {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+}
+
+.error-banner {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Common Card Style */
 .record-card {
     background: rgba(30, 41, 59, 0.6);
@@ -33,6 +69,7 @@
     margin-bottom: 8px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
 }
 
 .card-header h3 {
@@ -44,6 +81,23 @@
 
 .card-header svg {
     color: #60a5fa;
+}
+
+.edit-icon-btn {
+    position: absolute;
+    right: 0;
+    background: transparent;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--accent-blue);
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.edit-icon-btn:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.5);
 }
 
 /* Physician Card */
@@ -89,6 +143,90 @@
     font-weight: 500;
 }
 
+/* PCP Edit Form */
+.pcp-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.pcp-edit-form .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pcp-edit-form label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.pcp-edit-form input {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.pcp-edit-form input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-cancel-small,
+.btn-save-small {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-cancel-small {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-cancel-small:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-save-small {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+}
+
+.btn-save-small:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
 /* Split Row */
 .record-split-row {
     display: grid;
@@ -97,12 +235,6 @@
 }
 
 /* Prescriptions */
-.prescriptions-card .card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
 .action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -152,6 +284,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-height: 80px;
 }
 
 .appt-item {
@@ -179,6 +312,13 @@
     border-radius: 8px;
 }
 
+.no-appointments {
+    text-align: center;
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 20px;
+}
+
 .schedule-btn-small {
     background: #3b82f6;
     color: white;
@@ -191,17 +331,118 @@
     cursor: pointer;
     transition: background 0.2s;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 .schedule-btn-small:hover {
     background: #2563eb;
 }
 
-/* Vertical Stack Always */
-.record-split-row {
-    grid-template-columns: 1fr;
+/* Appointment Form */
+.appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.record-card {
-    height: auto;
+.form-field-compact {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field-compact input {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.form-field-compact input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-row-compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.form-row-compact input {
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.form-row-compact input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-actions-compact {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.btn-cancel-tiny,
+.btn-save-tiny {
+    flex: 1;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancel-tiny {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-cancel-tiny:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-save-tiny {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+}
+
+.btn-save-tiny:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-cancel-tiny:disabled,
+.btn-save-tiny:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.loading-text {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
 }

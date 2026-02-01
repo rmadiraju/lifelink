@@ -7,7 +7,10 @@ const {
     updateVitals,
     getUser,
     updateUser,
-    getRecords
+    getRecords,
+    updatePCP,
+    addAppointment,
+    updateMedicalRecordsAuth
 } = require('../api/_data-store');
 
 const app = express();
@@ -116,6 +119,35 @@ app.post('/api/user', (req, res) => {
     }
 });
 
+// Update medical records ER authorization
+app.post('/api/user/medical-records', (req, res) => {
+    try {
+        const { recordIds } = req.body;
+
+        if (!Array.isArray(recordIds)) {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid record IDs'
+            });
+        }
+
+        const updatedRecords = updateMedicalRecordsAuth(recordIds);
+        res.json({
+            success: true,
+            data: updatedRecords,
+            message: 'Medical records authorization updated',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error updating medical records:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error',
+            message: error.message
+        });
+    }
+});
+
 // Records endpoints
 app.get('/api/records', (req, res) => {
     try {
@@ -127,6 +159,64 @@ app.get('/api/records', (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching records:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error',
+            message: error.message
+        });
+    }
+});
+
+// Update Primary Care Physician
+app.post('/api/records/pcp', (req, res) => {
+    try {
+        const pcpData = req.body;
+
+        if (!pcpData || typeof pcpData !== 'object') {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid PCP data'
+            });
+        }
+
+        const updatedPCP = updatePCP(pcpData);
+        res.json({
+            success: true,
+            data: updatedPCP,
+            message: 'PCP updated successfully',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error updating PCP:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Internal server error',
+            message: error.message
+        });
+    }
+});
+
+// Add new appointment
+app.post('/api/records/appointments', (req, res) => {
+    try {
+        const appointmentData = req.body;
+
+        if (!appointmentData || typeof appointmentData !== 'object') {
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid appointment data'
+            });
+        }
+
+        const newAppointment = addAppointment(appointmentData);
+        res.json({
+            success: true,
+            data: newAppointment,
+            message: 'Appointment scheduled successfully',
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('Error adding appointment:', error);
         res.status(500).json({
             success: false,
             error: 'Internal server error',
