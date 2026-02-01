@@ -1,8 +1,8 @@
 {
-    "buildCommand": "cd lifelink-app && npm run build",
-    "outputDirectory": "lifelink-app/dist",
-    "devCommand": "cd lifelink-app && npm run dev",
-    "installCommand": "cd lifelink-app && npm install",
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
     "rewrites": [
         {
             "source": "/api/(.*)",
